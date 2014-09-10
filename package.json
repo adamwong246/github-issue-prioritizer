@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/adamwong246/github-issue-prioritizer/issues"
   },
-  "homepage": "https://github.com/adamwong246/github-issue-prioritizer"
+  "homepage": "https://github.com/adamwong246/github-issue-prioritizer",
+  "devDependencies": {
+    "github": "^0.2.2"
+  }
 }
