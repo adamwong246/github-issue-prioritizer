@@ -1,0 +1,19 @@
+{
+  "name": "github-issue-prioritizer",
+  "version": "0.0.0",
+  "description": "github-issue-prioritizer ========================",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/adamwong246/github-issue-prioritizer.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/adamwong246/github-issue-prioritizer/issues"
+  },
+  "homepage": "https://github.com/adamwong246/github-issue-prioritizer"
+}
