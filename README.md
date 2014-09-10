@@ -27,10 +27,14 @@ github-issue-prioritizer
 This goes in the description of an issue
 ```json
 {
-    due_date: 'Jan 1st, 2015',
-    business_value: 15,
-    technical_value: 10,
-    completion: 75%
-    blocks: [#1, #2, #3]
+    "due_date": "Jan 1st 2015",
+    "business_value": 15,
+    "technical_value": 10,
+    "completion": 75,
+    "blocks": [
+        1,
+        2,
+        3
+    ]
 }
 ```
