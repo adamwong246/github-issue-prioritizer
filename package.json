@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/adamwong246/github-issue-prioritizer",
   "devDependencies": {
-    "github": "^0.2.2"
+    "github": "^0.2.2",
+    "fastmatter": "^1.0.0"
   }
 }

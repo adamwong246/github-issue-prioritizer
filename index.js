@@ -1,3 +1,4 @@
+var fastmatter = require('fastmatter');
 var GitHubApi = require("github");
 
 var github = new GitHubApi({
@@ -19,5 +20,12 @@ github.issues.repoIssues({
     user: "adamwong246",
     repo: "github-issue-prioritizer"
 }, function(err, res) {
-    console.log(JSON.stringify(res));
+    console.log(
+        JSON.stringify(
+            res.map(function(h){
+                h.prio = fastmatter(h.body);
+                return h;
+            })
+        )
+    );
 });
