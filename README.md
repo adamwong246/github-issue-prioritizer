@@ -35,6 +35,11 @@ Insert the following json into a issue description *as YAML frontmatter.* See is
         1,
         2,
         3
+    ],
+    "blockees": [
+        97,
+        98,
+        99
     ]
 }
 ```
