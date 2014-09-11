@@ -27,7 +27,7 @@ github-issue-prioritizer
 Insert the following json into a issue description *as YAML frontmatter.* See issues for in this repo for more examples. 
 ```json
 {
-    "due_date": "Jan 1st 2015",
+    "due_date": "Jan 1st 2015", // any format you like
     "business_value": 15,
     "technical_value": 10,
     "completion": 75,
