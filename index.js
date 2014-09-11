@@ -35,6 +35,5 @@ github.issues.repoIssues({
     user: "adamwong246",
     repo: "github-issue-prioritizer"
 }, function(err, res) {
-    // console.log(JSON.stringify();
     console.log(JSON.stringify(GIP.prioritizeIssues(res)));
 });
