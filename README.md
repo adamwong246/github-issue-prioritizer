@@ -1,28 +1,6 @@
 github-issue-prioritizer
 ========================
 
-- priority
-  - lower is better
-  - `priority(i) = time_criticality(i) + business_value(i) + technical_value(i) + completion(i) + blocks(i).sum(e, e.priority)`
-
-
-##### dimensions
-- `time_criticality(i) -> (i.due_date - today) * tcScaler`
-  - time left to complete task
-  
-- `business_value(i) -> i.business_value * bvScaler * -1`
-  - the value provided by the task
-  
-- `technical_value(i) -> i.technical_value * tdcScaler * -1`
-  - the technical value provided by the task
-  - positive is debt: need to fix
-  - negative is credit: nice to fix
-
-- `completion(i) -> i.completed * completionScaler`
-  - amount of task done so far
-  - 0% is 'not done at all'
-  - 100% is 'done and finished'
-
 ##### example
 Insert the following json into a issue description *as YAML frontmatter.* See issues for in this repo for more examples. 
 ```json
@@ -44,3 +22,4 @@ Insert the following json into a issue description *as YAML frontmatter.* See is
     "points": 0                  // anything, primarily used for testing
 }
 ```
+
