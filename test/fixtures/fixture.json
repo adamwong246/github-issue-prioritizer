@@ -1,6 +1,0 @@
-[
-  {
-    "title": "Gone with the wind",
-    "body": "---\r\ndue_date: 'Dec 25, 2000'\r\ncompletion: 0\r\nbusiness_value: 1\r\ntechnical_value: 2\r\nblockers: [1, 2]\r\nblockees: [3]\r\n\r\n---\r\n\r\nThis is my next thing"
-  }
-]

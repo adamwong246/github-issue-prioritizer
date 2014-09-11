@@ -1,0 +1,14 @@
+[
+  {
+    "number": 0,
+    "body": "---\npoints: 1\n---\nThis is my next thing"
+  },
+  {
+    "number": 1,
+    "body": "---\npoints: 2\nblockers: [0]\nblockees: [2]\n---\nThis is my next thing"
+  },
+  {
+    "number": 2,
+    "body": "---\npoints: 3\n---\nThis is my next thing"
+  }
+]

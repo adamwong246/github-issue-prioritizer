@@ -42,5 +42,32 @@ describe('github-issue-prioritizer', function(){
       gip.prioritizeIssues(require('./fixtures/single.json'))[0].priority.should.have.property('calculated');
     });
 
+    it('the 0th should have 1 points', function(){
+      gip.prioritizeIssues(require('./fixtures/multiple.json'))[0].priority.attributes.should.have.property('points', 1);
+    });
+
+    it('the 1st should have 2 points', function(){
+      gip.prioritizeIssues(require('./fixtures/multiple.json'))[1].priority.attributes.should.have.property('points', 2);
+    });
+
+    it('the 1st should have 3 points', function(){
+      gip.prioritizeIssues(require('./fixtures/multiple.json'))[2].priority.attributes.should.have.property('points', 3);
+    });
+
+    it('the 0th and 2nd should NOT have blockers or blockees', function(){
+      gip.prioritizeIssues(require('./fixtures/multiple.json'))[0].priority.attributes.should.not.have.property('blockers');
+      gip.prioritizeIssues(require('./fixtures/multiple.json'))[0].priority.attributes.should.not.have.property('blockees');
+      gip.prioritizeIssues(require('./fixtures/multiple.json'))[2].priority.attributes.should.not.have.property('blockers');
+      gip.prioritizeIssues(require('./fixtures/multiple.json'))[2].priority.attributes.should.not.have.property('blockees');
+    });
+
+    it('the 1st should have blockers: [0]', function(){
+      gip.prioritizeIssues(require('./fixtures/multiple.json'))[1].priority.attributes.should.have.property('blockers', [0]);
+    });
+
+    it('the 1nd should have blockees: [2]', function(){
+      gip.prioritizeIssues(require('./fixtures/multiple.json'))[1].priority.attributes.should.have.property('blockees', [2]);
+    });
+
   });
 });
