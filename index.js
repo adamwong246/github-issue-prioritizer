@@ -11,7 +11,7 @@ var GIP = function () {
 
 GIP.prioritizeIssue = function(h){
     var days = moment(h.due_date).diff(moment(), 'days');
-    return h.points + h.business_value + h.technical_value + h.completion + days;
+    return (h.points || 0) + (h.business_value || 0) + (h.technical_value || 0) + (h.completion || 0) + days;
 };
 
 GIP.prioritizeIssues = function(results){

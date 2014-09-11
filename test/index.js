@@ -69,5 +69,17 @@ describe('github-issue-prioritizer', function(){
       gip.prioritizeIssues(require('./fixtures/multiple.json'))[1].priority.attributes.should.have.property('blockees', [2]);
     });
 
+    it('the 0th should have a calculated', function(){
+      gip.prioritizeIssues(require('./fixtures/multiple.json'))[0].priority.should.have.property('calculated', 1);
+    });
+
+    it('the 1st should have a calculated', function(){
+      gip.prioritizeIssues(require('./fixtures/multiple.json'))[1].priority.should.have.property('calculated', 3);
+    });
+
+    it('the 2nd should have a calculated', function(){
+      gip.prioritizeIssues(require('./fixtures/multiple.json'))[2].priority.should.have.property('calculated', 6);
+    });
+
   });
 });
