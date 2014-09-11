@@ -19,6 +19,10 @@
   "devDependencies": {
     "github": "^0.2.2",
     "fastmatter": "^1.0.0",
-    "moment": "^2.8.3"
+    "moment": "^2.8.3",
+    "mocha": "^1.21.4",
+    "should": "^4.0.4",
+    "eyes": "^0.1.8",
+    "lodash": "^2.4.1"
   }
 }
