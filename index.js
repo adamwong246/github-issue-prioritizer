@@ -1,3 +1,4 @@
+var fs = require('fs');
 var fastmatter = require('fastmatter');
 var GitHubApi = require("github");
 var moment = require('moment');
@@ -59,13 +60,31 @@ GIP.prototype.output = function(){
 
 module.exports = GIP;
 
-var github = new GitHubApi({
-    version: "3.0.0",
-});
+//////////////////////////////////
+var config = {
+    // "cache": "./cache.json",
+    "input": "./cache.json"
+};
 
-github.issues.repoIssues({
-    user: "adamwong246",
-    repo: "github-issue-prioritizer"
-}, function(err, res) {
-    console.log(JSON.stringify((new GIP(res)).output(), null, 1));
-});
+
+//////////////////////////////////
+if (!(typeof config["input"] === 'undefined')) {
+    console.log(JSON.stringify((new GIP(require(config["input"]))).output(), null, 1));
+} else {
+    var github = new GitHubApi({
+        version: "3.0.0",
+    });
+
+    github.issues.repoIssues({
+        user: "adamwong246",
+        repo: "github-issue-prioritizer"
+    }, function(err, res) {
+
+        if (!(typeof config["cache"] === 'undefined')) {
+            fs.writeFileSync(config["cache"], JSON.stringify(res, null, 1));
+        }
+
+        console.log(JSON.stringify((new GIP(res)).output(), null, 1));
+    });
+
+}
