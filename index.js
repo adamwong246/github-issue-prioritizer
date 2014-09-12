@@ -74,8 +74,10 @@ var raw = "";
 
 //////////////////////////////////
 if (!(typeof config["input"] === 'undefined')) {
+    console.log("reading from: " + config["input"]);
     raw = new GIP(require(config["input"])).output();
 } else {
+    console.log("reading from github: ");
     var github = new GitHubApi({
         version: "3.0.0",
     });
@@ -90,6 +92,7 @@ if (!(typeof config["input"] === 'undefined')) {
         }
 
         raw = new GIP(res).output();
+        console.log(JSON.stringify(raw));
     });
 
 }
@@ -97,6 +100,7 @@ if (!(typeof config["input"] === 'undefined')) {
 if (typeof config["output"] === 'undefined') {
     console.log(JSON.stringify(raw, null, 1));
 } else {
+    console.log("writing to: " + config["output"]);
     switch(path.extname(config["output"])) {
     case '.json':
         fs.writeFileSync(config["output"], JSON.stringify(raw, null, 1));
