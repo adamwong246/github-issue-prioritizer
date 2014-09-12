@@ -14,12 +14,7 @@ Insert the following json into a issue description *as YAML frontmatter.* See is
         2,
         3
     ],
-    "blockees": [                 // a list of issues which are blocked by this issue
-        97,
-        98,
-        99
-    ],
-    "points": 0                  // anything, primarily used for testing
+    "points": 0                   // anything, primarily used for testing
 }
 ```
 
