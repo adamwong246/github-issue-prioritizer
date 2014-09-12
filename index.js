@@ -3,6 +3,7 @@ var path = require('path')
 var fastmatter = require('fastmatter');
 var GitHubApi = require("github");
 var moment = require('moment');
+var jade = require('jade');
 var eyes = require('eyes');
 var _ = require('lodash');
 moment().format();
@@ -65,7 +66,7 @@ module.exports = GIP;
 var config = {
     // "cache": "./cache.json",
     "input": "./tmp/cache.json",
-    "output": "./tmp/out.json"
+    "output": "./tmp/out.html"
 };
 
 
@@ -99,6 +100,11 @@ if (typeof config["output"] === 'undefined') {
     switch(path.extname(config["output"])) {
     case '.json':
         fs.writeFileSync(config["output"], JSON.stringify(raw, null, 1));
+        break;
+    case '.html':
+        fs.writeFileSync(config["output"],
+            jade.renderFile('templates/template.jade', {"pretty": true, "self": raw})
+        );
         break;
 }
 }

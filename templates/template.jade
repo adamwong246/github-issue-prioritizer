@@ -1,0 +1,6 @@
+doctype html
+html(lang="en")
+  body
+    ul
+      each val, index in self.self
+        li= index + ': ' + JSON.stringify(val)
