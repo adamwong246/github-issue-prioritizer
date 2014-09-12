@@ -1,6 +1,7 @@
 doctype html
 html(lang="en")
   body
+    = self.datetime.toLocaleDateString() + " " + self.datetime.toLocaleTimeString()
     ul
       each val, index in self.self
         li= index + ': ' + JSON.stringify(val)

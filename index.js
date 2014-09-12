@@ -107,7 +107,7 @@ if (typeof config["output"] === 'undefined') {
         break;
     case '.html':
         fs.writeFileSync(config["output"],
-            jade.renderFile('templates/template.jade', {"pretty": true, "self": raw})
+            jade.renderFile('templates/template.jade', {"pretty": true, "self": raw, "datetime": new Date()})
         );
         break;
 }
