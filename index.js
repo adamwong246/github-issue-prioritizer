@@ -1,4 +1,5 @@
 var fs = require('fs');
+var path = require('path')
 var fastmatter = require('fastmatter');
 var GitHubApi = require("github");
 var moment = require('moment');
@@ -63,13 +64,16 @@ module.exports = GIP;
 //////////////////////////////////
 var config = {
     // "cache": "./cache.json",
-    "input": "./cache.json"
+    "input": "./tmp/cache.json",
+    "output": "./tmp/out.json"
 };
 
 
+var raw = "";
+
 //////////////////////////////////
 if (!(typeof config["input"] === 'undefined')) {
-    console.log(JSON.stringify((new GIP(require(config["input"]))).output(), null, 1));
+    raw = new GIP(require(config["input"])).output();
 } else {
     var github = new GitHubApi({
         version: "3.0.0",
@@ -84,7 +88,17 @@ if (!(typeof config["input"] === 'undefined')) {
             fs.writeFileSync(config["cache"], JSON.stringify(res, null, 1));
         }
 
-        console.log(JSON.stringify((new GIP(res)).output(), null, 1));
+        raw = new GIP(res).output();
     });
 
+}
+
+if (typeof config["output"] === 'undefined') {
+    console.log(JSON.stringify(raw, null, 1));
+} else {
+    switch(path.extname(config["output"])) {
+    case '.json':
+        fs.writeFileSync(config["output"], JSON.stringify(raw, null, 1));
+        break;
+}
 }
