@@ -2,7 +2,7 @@ doctype html
 html(lang="en")
   head
   body
-    = self.datetime.toLocaleDateString() + " " + self.datetime.toLocaleTimeString()
+    = datetime.toLocaleDateString() + " " + datetime.toLocaleTimeString()
     table
       thead
         tr
@@ -14,7 +14,7 @@ html(lang="en")
           th Priority
           th Api
       tbody
-        each val, index in self.self
+        each val, index in results
           tr
             td
               a(href=val.html_url)
