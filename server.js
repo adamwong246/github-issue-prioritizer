@@ -49,6 +49,7 @@ function authenticate(code, cb) {
   req.on('error', function(e) { cb(e.message); });
 }
 
+app.use(express.static('.'));
 
 // Convenience for allowing CORS on routes - GET only
 app.all('*', function (req, res, next) {
@@ -71,5 +72,5 @@ app.get('/authenticate/:code', function(req, res) {
 var port = process.env.PORT || config.port || 9999;
 
 app.listen(port, null, function (err) {
-  console.log('Gatekeeper, at your service: http://localhost:' + port);
+  console.log('Github-Issue-Prioritizer, at your service: http://localhost:' + port);
 });
