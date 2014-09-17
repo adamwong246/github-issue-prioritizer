@@ -2,7 +2,6 @@
   "name": "github-issue-prioritizer",
   "version": "0.0.0",
   "description": "github-issue-prioritizer ========================",
-  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -25,5 +24,15 @@
     "eyes": "^0.1.8",
     "lodash": "^2.4.1",
     "jade": "^1.6.0"
-  }
+  },
+  "scripts": {
+      "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "~3.16.0"
+  },
+  "engines": {
+    "node": ">= 0.6.x"
+  },
+  "main": "index"
 }
