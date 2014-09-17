@@ -3,12 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="Content-Type" content="text/html">
-  <title>Github API Webapp using jQuery - Treehouse Demo</title>
-  <meta name="author" content="Jake Rocheleau">
+  <title>Github-Issue-Prioritizer</title>
+  <meta name="author" content="Adam Wong">
   <link rel="shortcut icon" href="http://d15dxvojnvxp1x.cloudfront.net/assets/favicon.ico">
   <link rel="icon" href="http://d15dxvojnvxp1x.cloudfront.net/assets/favicon.ico">
   <link rel="stylesheet" type="text/css" media="all" href="css/styles.css">
   <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+  <script type="text/javascript" src="js/json2html.js"></script>
+  <script type="text/javascript" src="js/jquery.json2html.js"></script>
 </head>
 
 <body>
@@ -33,10 +35,27 @@ $(function(){
     var repo = $('#ghreponame').val();
     var requri = 'https://api.github.com/repos/' + username + '/'+repo+'/issues';
 
-    
+    var transforms = {
+          
+      'issues': [
+            
+          {"tag":"ul","class":"issues-multiple", "children":function() {return(json2html.transform(this,transforms.issue));}}
+
+          ],
+      'issue': [
+           
+          {"tag":"li","class":"issue-singular","children":[
+            {"tag":"span","class":"title","html":"${title}"},
+            {"tag":"a","class":"url","html":"${url}", "href":"${url}"}
+          ]}
+         
+      ]};
+
     requestJSON(requri, function(json) {
 
-      $('#ghapidata').html(JSON.stringify(json));
+      console.log(JSON.stringify(json));
+      $('#ghapidata').json2html(json, transforms.issues);
+      // $('#ghapidata').html(JSON.stringify(json));
       // if(json.message == "Not Found" || username == '') {
       //   $('#ghapidata').html("<h2>No User Info Found</h2>");
       // }
