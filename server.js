@@ -3,6 +3,7 @@ var url     = require('url'),
     https   = require('https'),
     fs      = require('fs'),
     qs      = require('querystring'),
+    github  = require('octonode'),
     express = require('express'),
     app     = express();
 
@@ -63,8 +64,18 @@ app.all('*', function (req, res, next) {
 app.get('/authenticate', function(req, res) {
   authenticate(req.query.code, function(err, token) {
     var result = err || !token ? {"error": "bad_code"} : { "token": token };
-    console.log(result);
+
+    var client = github.client(token);
+    var ghrepo = client.repo('adamwong246/github-issue-prioritizer');
+    var issues = ghrepo.issues(function(err, data, headers) {
+      console.log("error: " + JSON.stringify(err));
+      console.log("data: " + JSON.stringify(data));
+      console.log("headers:" + JSON.stringify(headers));
+    });
+    console.log(JSON.stringify(result));
     res.json(result);
+
+    
   });
 });
 
