@@ -83,8 +83,8 @@ app.get('/authenticate', function(req, res) {
 app.get('/issues', function(req, res) {
     var client = github.client(req.session.ghToken);
     var ghme   = client.me();
-    // var ghrepo = client.repo('adamwong246/github-issue-prioritizer');
-    var ghrepo = client.repo('hubbubhealth/hubbub-main');
+    var ghrepo = client.repo('adamwong246/github-issue-prioritizer');
+    // var ghrepo = client.repo('hubbubhealth/hubbub-main');
 
     var issues = ghrepo.issues(function(err, data, headers) {
       console.log("error: " + JSON.stringify(err));
