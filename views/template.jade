@@ -19,11 +19,11 @@ html(lang="en")
             td
               a(href=val.html_url)
                 = val.title + " #" + val.number
-
-            td= val.priority.attributes.due_date
-            td= val.priority.attributes.completion
-            td= val.priority.attributes.business_value
-            td= val.priority.attributes.blockers
-            td= val.priority.calculated
-            td
-              a(href=val.url) api
+            if val.priority
+              td= val.priority.attributes.due_date
+              td= val.priority.attributes.completion
+              td= val.priority.attributes.business_value
+              td= val.priority.attributes.blockers
+              td= val.priority.calculated
+              td
+                a(href=val.url) api

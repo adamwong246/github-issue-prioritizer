@@ -17,58 +17,11 @@
   <div id="w">
     <h1>Github-Issue-Prioritizer</h1>
 
-    <input type="text" name="ghusername" id="ghusername" placeholder="Github username..." value="hubbubhealth">
-    <input type="text" name="ghreponame" id="ghreponame" placeholder="Github repo..." value="hubbub-main">
+    <a href="https://github.com/login/oauth/authorize?scope=repo&client_id=4aeefea092d755bbb9bb" id="ghsubmitbtn">Login</a>
     
-    <a href="#" id="ghsubmitbtn">Pull Issues</a>
-    
+
     <div id="ghapidata" class="clearfix"></div>
   </div>
-<script type="text/javascript">
-$(function(){
-  $('#ghsubmitbtn').on('click', function(e){
-    e.preventDefault();
-    $('#ghapidata').html('<div id="loader"><img src="css/loader.gif" alt="loading..."></div>');
-    
-    var username = $('#ghusername').val();
-    var repo = $('#ghreponame').val();
-    var auth_1 = 'https://api.github.com/repos/' + username + '/'+repo+'/issues';
 
-    var transforms = {
-          
-      'issues': [
-            
-          {"tag":"ul","class":"issues-multiple", "children":function() {return(json2html.transform(this,transforms.issue));}}
-
-          ],
-      'issue': [
-           
-          {"tag":"li","class":"issue-singular","children":[
-            {"tag":"span","class":"title","html":"${title}"},
-            {"tag":"a","class":"url","html":"${url}", "href":"${url}"}
-          ]}
-         
-      ]};
-
-    window.open('https://github.com/login/oauth/authorize?client_id=4aeefea092d755bbb9bb');
-    // requestJSON(auth_0, function(json) {
-
-    //   console.log(JSON.stringify(json));
-    //   $('#ghapidata').html('');
-    //   $('#ghapidata').json2html(json, transforms.issues);
-      
-    // }); // end requestJSON Ajax call
-  }); // end click event handler
-  
-  function requestJSON(url, callback) {
-    $.ajax({
-      url: url,
-      complete: function(xhr) {
-        callback.call(null, xhr.responseJSON);
-      }
-    });
-  }
-});
-</script>
 </body>
 </html>

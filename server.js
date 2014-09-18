@@ -1,11 +1,13 @@
-var url     = require('url'),
-    http    = require('http'),
-    https   = require('https'),
-    fs      = require('fs'),
-    qs      = require('querystring'),
-    github  = require('octonode'),
-    express = require('express'),
-    app     = express();
+var url       = require('url'),
+    http      = require('http'),
+    https     = require('https'),
+    fs        = require('fs'),
+    qs        = require('querystring'),
+    github    = require('octonode'),
+    node2json = require('node-json2html'),
+    express   = require('express'),
+    gip       = require ("./index.js"),
+    app       = express();
 
 // Load config defaults from JSON file.
 // Environment variables override defaults.
@@ -52,10 +54,12 @@ function authenticate(code, cb) {
 
 app.use(express.static('.'));
 
+app.set('view engine', 'jade');
+
 // Convenience for allowing CORS on routes - GET only
 app.all('*', function (req, res, next) {
-  res.header('Access-Control-Allow-Origin', '*'); 
-  res.header('Access-Control-Allow-Methods', 'GET, OPTIONS'); 
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, OPTIONS');
   res.header('Access-Control-Allow-Headers', 'Content-Type');
   next();
 });
@@ -66,16 +70,20 @@ app.get('/authenticate', function(req, res) {
     var result = err || !token ? {"error": "bad_code"} : { "token": token };
 
     var client = github.client(token);
-    var ghrepo = client.repo('adamwong246/github-issue-prioritizer');
+    var ghme   = client.me();
+    // var ghrepo = client.repo('adamwong246/github-issue-prioritizer');
+    var ghrepo = client.repo('hubbubhealth/hubbub-main');
+
     var issues = ghrepo.issues(function(err, data, headers) {
       console.log("error: " + JSON.stringify(err));
       console.log("data: " + JSON.stringify(data));
       console.log("headers:" + JSON.stringify(headers));
+
+      res.render('template', {"pretty": true, "results": new gip(data).output(), "datetime": new Date()});
+      // res.json(data);
     });
     console.log(JSON.stringify(result));
-    res.json(result);
 
-    
   });
 });
 

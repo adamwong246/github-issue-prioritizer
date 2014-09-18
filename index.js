@@ -64,64 +64,64 @@ module.exports = GIP;
 
 //////////////////////////////////
     
-var config = {
-    // "cache": "./cache.json",
-    // "input": "./tmp/cache.json",
-    "output": "./tmp/out.html"
-    // "output": "./tmp/out.json"
-};
+// var config = {
+//     // "cache": "./cache.json",
+//     // "input": "./tmp/cache.json",
+//     "output": "./tmp/out.html"
+//     // "output": "./tmp/out.json"
+// };
 
-var githubRepoConfigs = {
-    user: "hubbubhealth",
-    repo: "hubbub-main"
-};
+// var githubRepoConfigs = {
+//     user: "hubbubhealth",
+//     repo: "hubbub-main"
+// };
 
-var githubAuthConfigs = {
-    type: "oauth",
-    token: 'xxx'
-};
+// var githubAuthConfigs = {
+//     type: "oauth",
+//     token: 'xxx'
+// };
 
-var githubApiConfigs = {
-    version: "3.0.0",
-    // debug: true
-};
+// var githubApiConfigs = {
+//     version: "3.0.0",
+//     // debug: true
+// };
 
-var raw;
+// var raw;
 
-var outputer = function(results, outputConfig){
-    if (typeof outputConfig === 'undefined') {
-        console.log(JSON.stringify(raw, null, 1));
-    } else {
-        console.log("writing to: " + outputConfig);
-        switch(path.extname(outputConfig)) {
-        case '.json':
-            fs.writeFileSync(outputConfig, JSON.stringify(raw, null, 1));
-            break;
-        case '.html':
-            fs.writeFileSync(outputConfig,
-                jade.renderFile('templates/template.jade', {"pretty": true, "results": results, "datetime": new Date()})
-            );
-            break;
-        }
-    }
-};
+// var outputer = function(results, outputConfig){
+//     if (typeof outputConfig === 'undefined') {
+//         console.log(JSON.stringify(raw, null, 1));
+//     } else {
+//         console.log("writing to: " + outputConfig);
+//         switch(path.extname(outputConfig)) {
+//         case '.json':
+//             fs.writeFileSync(outputConfig, JSON.stringify(raw, null, 1));
+//             break;
+//         case '.html':
+//             fs.writeFileSync(outputConfig,
+//                 jade.renderFile('templates/template.jade', {"pretty": true, "results": results, "datetime": new Date()})
+//             );
+//             break;
+//         }
+//     }
+// };
 
-if (!(typeof config["input"] === 'undefined')) {
-    console.log("reading from: " + config["input"]);
+// if (!(typeof config["input"] === 'undefined')) {
+//     console.log("reading from: " + config["input"]);
 
-    outputer(new GIP(res).output(), config["output"]);
+//     outputer(new GIP(res).output(), config["output"]);
 
-} else {
-    console.log("reading from github: ");
+// } else {
+//     console.log("reading from github: ");
 
-    var github = new GitHubApi(githubApiConfigs);
-    github.authenticate(githubAuthConfigs);
-    github.issues.repoIssues(githubRepoConfigs, function(err, res) {
-        if (!(typeof config["cache"] === 'undefined')) {
-            fs.writeFileSync(config["cache"], JSON.stringify(res, null, 1));
-        }
+//     var github = new GitHubApi(githubApiConfigs);
+//     github.authenticate(githubAuthConfigs);
+//     github.issues.repoIssues(githubRepoConfigs, function(err, res) {
+//         if (!(typeof config["cache"] === 'undefined')) {
+//             fs.writeFileSync(config["cache"], JSON.stringify(res, null, 1));
+//         }
 
-        outputer(new GIP(res).output(), config["output"]);
-    });
+//         outputer(new GIP(res).output(), config["output"]);
+//     });
 
-}
+// }
