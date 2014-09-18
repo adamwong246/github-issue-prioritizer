@@ -27,7 +27,8 @@
     "jade": "^1.6.0",
     "request": "^2.42.0",
     "octonode": "^0.6.5",
-    "node-json2html": "^0.4.1"
+    "node-json2html": "^0.4.1",
+    "express-session": "^1.8.2"
   },
   "dependencies": {
     "express": "~3.16.0"

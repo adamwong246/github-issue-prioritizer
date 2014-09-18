@@ -6,8 +6,11 @@ var url       = require('url'),
     github    = require('octonode'),
     node2json = require('node-json2html'),
     express   = require('express'),
+    session   = require('express-session'),
     gip       = require ("./index.js"),
     app       = express();
+
+app.use(session({secret:'somesecrettokenhere'}));
 
 // Load config defaults from JSON file.
 // Environment variables override defaults.
@@ -69,7 +72,16 @@ app.get('/authenticate', function(req, res) {
   authenticate(req.query.code, function(err, token) {
     var result = err || !token ? {"error": "bad_code"} : { "token": token };
 
-    var client = github.client(token);
+    req.session.ghToken = token;
+
+    res.redirect("/landing");
+
+  });
+
+});
+
+app.get('/landing', function(req, res) {
+    var client = github.client(req.session.ghToken);
     var ghme   = client.me();
     // var ghrepo = client.repo('adamwong246/github-issue-prioritizer');
     var ghrepo = client.repo('hubbubhealth/hubbub-main');
@@ -80,11 +92,9 @@ app.get('/authenticate', function(req, res) {
       console.log("headers:" + JSON.stringify(headers));
 
       res.render('template', {"pretty": true, "results": new gip(data).output(), "datetime": new Date()});
-      // res.json(data);
+      // res.json(data);  
     });
-    console.log(JSON.stringify(result));
-
-  });
+    // console.log(JSON.stringify(result));
 });
 
 var port = process.env.PORT || config.port || 9999;
