@@ -74,13 +74,13 @@ app.get('/authenticate', function(req, res) {
 
     req.session.ghToken = token;
 
-    res.redirect("/landing");
+    res.redirect("/issues");
 
   });
 
 });
 
-app.get('/landing', function(req, res) {
+app.get('/issues', function(req, res) {
     var client = github.client(req.session.ghToken);
     var ghme   = client.me();
     // var ghrepo = client.repo('adamwong246/github-issue-prioritizer');
