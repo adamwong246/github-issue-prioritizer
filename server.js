@@ -68,6 +68,10 @@ app.all('*', function (req, res, next) {
 });
 
 
+app.get('/', function(req, res){
+  res.render('index', {"pretty": true, "oauth_client_id": config.oauth_client_id } );
+});
+
 app.get('/authenticate', function(req, res) {
   authenticate(req.query.code, function(err, token) {
     var result = err || !token ? {"error": "bad_code"} : { "token": token };
@@ -100,5 +104,5 @@ app.get('/issues', function(req, res) {
 var port = process.env.PORT || config.port || 9999;
 
 app.listen(port, null, function (err) {
-  console.log('Github-Issue-Prioritizer, at your service: http://localhost:' + port);
+  console.log('Github-Issue-Prioritizer running...');
 });
