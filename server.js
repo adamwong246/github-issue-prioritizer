@@ -1,10 +1,7 @@
-var url         = require('url'),
-    http        = require('http'),
+var http        = require('http'),
     https       = require('https'),
-    fs          = require('fs'),
     qs          = require('querystring'),
     github      = require('octonode'),
-    node2json   = require('node-json2html'),
     express     = require('express'),
     session     = require('express-session'),
     objectMerge = require('object-merge'),
@@ -92,8 +89,6 @@ app.get('/authenticate', function(req, res) {
 
 app.get('/issues', function(req, res) {
     var client = github.client(req.session.ghToken);
-    var ghme   = client.me();
-    // var ghrepo = client.repo('adamwong246/github-issue-prioritizer');
     var ghrepo = client.repo('hubbubhealth/hubbub-main');
 
     var issues = ghrepo.issues(function(err, data, headers) {
@@ -102,9 +97,7 @@ app.get('/issues', function(req, res) {
       console.log("headers:" + JSON.stringify(headers));
 
       res.render('template', {"pretty": true, "results": new gip(data).output(), "datetime": new Date()});
-      // res.json(data);  
     });
-    // console.log(JSON.stringify(result));
 });
 
 var port = process.env.PORT || config.port || 9999;
