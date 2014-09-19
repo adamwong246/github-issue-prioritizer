@@ -1,24 +1,33 @@
-var url       = require('url'),
-    http      = require('http'),
-    https     = require('https'),
-    fs        = require('fs'),
-    qs        = require('querystring'),
-    github    = require('octonode'),
-    node2json = require('node-json2html'),
-    express   = require('express'),
-    session   = require('express-session'),
-    gip       = require ("./index.js"),
-    app       = express();
+var url         = require('url'),
+    http        = require('http'),
+    https       = require('https'),
+    fs          = require('fs'),
+    qs          = require('querystring'),
+    github      = require('octonode'),
+    node2json   = require('node-json2html'),
+    express     = require('express'),
+    session     = require('express-session'),
+    env         = require('node-env-file'),
+    objectMerge = require('object-merge'),
+    gip         = require ("./index.js"),
+    app         = express();
 
 app.use(session({secret:'somesecrettokenhere'}));
 
-// Load config defaults from JSON file.
+env(__dirname + '/.env');
+
 // Environment variables override defaults.
 function loadConfig() {
-  var config = JSON.parse(fs.readFileSync(__dirname+ '/config.json', 'utf-8'));
-  for (var i in config) {
-    config[i] = process.env[i.toUpperCase()] || config[i];
-  }
+  var config = objectMerge({
+    "oauth_host": "github.com",
+    "oauth_port": 443,
+    "oauth_path": "/login/oauth/access_token",
+    "oauth_method": "POST"
+  }, {
+    'oauth_client_id':     process.env['OAUTH_CLIENT_ID'],
+    'oauth_client_secret': process.env['OAUTH_CLIENT_SECRET']
+  });
+
   console.log('Configuration');
   console.log(config);
   return config;
@@ -87,8 +96,8 @@ app.get('/authenticate', function(req, res) {
 app.get('/issues', function(req, res) {
     var client = github.client(req.session.ghToken);
     var ghme   = client.me();
-    var ghrepo = client.repo('adamwong246/github-issue-prioritizer');
-    // var ghrepo = client.repo('hubbubhealth/hubbub-main');
+    // var ghrepo = client.repo('adamwong246/github-issue-prioritizer');
+    var ghrepo = client.repo('hubbubhealth/hubbub-main');
 
     var issues = ghrepo.issues(function(err, data, headers) {
       console.log("error: " + JSON.stringify(err));
