@@ -7,14 +7,11 @@ var url         = require('url'),
     node2json   = require('node-json2html'),
     express     = require('express'),
     session     = require('express-session'),
-    env         = require('node-env-file'),
     objectMerge = require('object-merge'),
     gip         = require ("./index.js"),
     app         = express();
 
 app.use(session({secret:'somesecrettokenhere'}));
-
-env(__dirname + '/.env');
 
 // Environment variables override defaults.
 function loadConfig() {
